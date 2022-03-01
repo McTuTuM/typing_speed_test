@@ -33,7 +33,7 @@ class Window(Ui_MainWindow, QtWidgets.QMainWindow):
 
     def show_sentence(self):
         step = 0
-        length_text = 60
+        length_text = 70
         line1 = ''
         with open('НаборПредложений.txt', 'r', encoding='UTF-8') as file:
             lines = file.readlines()
