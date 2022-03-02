@@ -2,11 +2,12 @@ from random import randint
 import requests
 from bs4 import BeautifulSoup
 class CreatorSent:
+
     def text_get():
-        s = randint(0, 7)
+        s = randint(1, 7)
         step_fin = 0
         step_st = 0
-        lenght = 300
+        lenght = 100
         req = requests.get(f'https://ilibrary.ru/text/1146/p.{s}/index.html')
         root = BeautifulSoup(req.content, 'html.parser')
         shift = randint(0, len(root.text) - lenght * 2)
