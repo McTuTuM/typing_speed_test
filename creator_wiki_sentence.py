@@ -10,7 +10,7 @@ class CreatorSent:
         lenght = 100
         req = requests.get(f'https://ilibrary.ru/text/1146/p.{s}/index.html')
         root = BeautifulSoup(req.content, 'html.parser')
-        shift = randint(0, len(root.text) - lenght * 2)
+        shift = randint(100, len(root.text) - lenght * 2)
         if not root.text[shift].istitle():
             while root.text[shift + step_st].istitle() == False:
                 step_st += 1

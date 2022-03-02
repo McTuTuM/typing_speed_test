@@ -14,16 +14,20 @@ class Window(Ui_MainWindow, QtWidgets.QMainWindow):
         self.pushButton_2.clicked.connect(self.pas)
         self.sig.connect(self.compl)
         self.sig_time.connect(self.real_time)
+        self.pushButton_2.setEnabled(False)
         self.rest = False
+        self.first = True
 
     def start(self):
         self.rest = False + 2
         self.show_sentence()
         threading.Thread(target=self.equal, daemon=True).start()
         self.lineEdit.setEnabled(True)
+        self.pushButton.setEnabled(False)
 
 
     def real_time(self, time):
+        self.pushButton.setEnabled(False)
         self.label_time_res.setText(time)
         try:
             self.label_wpm_res.setText(str(round((len(self.lineEdit.text()[:-1]) * 60 )/ (float(self.label_time_res.text())), 2)))
@@ -52,6 +56,9 @@ class Window(Ui_MainWindow, QtWidgets.QMainWindow):
     
     def pas(self):
         self.rest = True
+        self.pushButton_2.setEnabled(False)
+        self.pushButton.setEnabled(True)
+
 
     def compl(self):
         self.lineEdit.setDisabled(True)
@@ -61,6 +68,7 @@ class Window(Ui_MainWindow, QtWidgets.QMainWindow):
 
     def equal(self):
         while True:
+            self.pushButton_2.setEnabled(True)
             start_time = time.time()
             while len(self.label_2.text()) > len(self.lineEdit.text()):
                 times = str(round(time.time() - start_time, 1))
