@@ -1,6 +1,6 @@
 from PyQt5 import QtWidgets, QtCore
 from typing_speed_test_gui import Ui_MainWindow
-import random, time, difflib, threading
+import time, difflib, threading
 from creator_wiki_sentence import CreatorSent
 
 
