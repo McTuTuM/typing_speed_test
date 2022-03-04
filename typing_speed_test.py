@@ -26,11 +26,26 @@ class Window(Ui_MainWindow, QtWidgets.QMainWindow):
         self.pushButton.setEnabled(False)
 
 
-    def real_time(self, time):
+    def real_time(self, times):
         self.pushButton.setEnabled(False)
-        self.label_time_res.setText(time)
+        time = float(times)
+        m = 0
+        if time > 60:
+            m = int(time // 60)
+            s = int(time - m * 60 )
+            if m < 10:
+                self.label_time_res.setText(f'0{m}:{s}')
+            else:
+                self.label_time_res.setText(f'{m}:{s}')
+        else:
+            s = time
+            if s < 10:
+                self.label_time_res.setText(f'0{s}')
+            else:
+                self.label_time_res.setText(f'{s}')
+        # self.label_time_res.setText(time)
         try:
-            self.label_wpm_res.setText(str(round((len(self.lineEdit.text()[:-1]) * 60 )/ (float(self.label_time_res.text())), 2)))
+            self.label_wpm_res.setText(str(round((len(self.lineEdit.text()[:-1]) * 60 )/ (float(times)), 2)))
         except ZeroDivisionError:
             self.label_wpm_res.setText('0')
         acc = difflib.SequenceMatcher(None,self.label_2.text()[:len(self.label_2.text())], self.lineEdit.text())
@@ -39,20 +54,20 @@ class Window(Ui_MainWindow, QtWidgets.QMainWindow):
 
     def show_sentence(self):
         step = 0
-        length_text = 70
-        line1 = ''
+        length_line = 70
+        line_compl = ''
         line = CreatorSent.text_get()
         try:
-            line1 += line[:length_text] 
-            for i in range(length_text, len(line), length_text):
+            line_compl += line[:length_line] 
+            for i in range(length_line, len(line), length_line):
                 step = 0
                 while line[i + step] != " ":
                     step += 1
-                line1 += line[i: i + step ] + '\n'
-                line1 += line[i + step + 1:i + length_text]
+                line_compl += line[i: i + step ] + '\n'
+                line_compl += line[i + step + 1:i + length_line]
         except IndexError:
-            line1 += line[i:]
-        self.label_2.setText(line1)
+            line_compl += line[i:]
+        self.label_2.setText(line_compl)
     
     def pas(self):
         self.rest = True
@@ -78,7 +93,6 @@ class Window(Ui_MainWindow, QtWidgets.QMainWindow):
                     break
             else:
                 self.sig_time.emit(times)
-            
             self.sig.emit()
 
             return
