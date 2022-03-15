@@ -10,7 +10,7 @@ class CreatorSent:
         step_fin = 0
         step_st = 0
         lenght = 100
-        req = requests.get(f'https://ilibrary.ru/text/{942}/p.{4}/index.html')
+        req = requests.get(f'https://ilibrary.ru/text/{story}/p.{page}/index.html')
         try:
             req = requests.get(f'https://ilibrary.ru/text/{story}/p.{page}/index.html')
         except requests.exceptions.InvalidURL:
